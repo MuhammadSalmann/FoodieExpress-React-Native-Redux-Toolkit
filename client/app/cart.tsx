@@ -58,14 +58,20 @@ export default function Cart() {
           </TouchableOpacity>
         </View>
         {/* dishes */}
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={tw`bg-white pt-5`}
-          contentContainerStyle={{ paddingBottom: 50 }}
-        >
+        {
+          cartItems.length === 0 ? (
+            <View style={tw`flex-1 justify-center items-center`}>
+              <Text style={tw`text-center text-xl font-bold`}>Your Cart is Empty</Text>
+              <Text style={tw`text-center text-gray-500`}>Add items to your cart</Text>
+            </View>
+          ) : (
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              style={tw`bg-white pt-5`}
+              contentContainerStyle={{ paddingBottom: 50 }}
+            >
           {
             Object.entries(groupedItems).map(([key, items]) => {
-              console.log("her", items)
               let dish = items[0]
               return (
                 <View key={key} style={tw`flex-row justify-between items-center rounded-3xl bg-white mt-3 px-4 py-2 shadow-md`}>
@@ -91,7 +97,9 @@ export default function Cart() {
               )
             })
           }
-        </ScrollView>
+          </ScrollView>
+          )
+        }
         {/* total */}
         <View style={[tw`p-6 px-8 rounded-t-3xl mt-4`, {backgroundColor: themeColors.bgColor(0.2)}]}>
           <View style={tw`flex-row justify-between`}>
